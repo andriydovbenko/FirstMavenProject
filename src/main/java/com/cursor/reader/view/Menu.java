@@ -13,6 +13,7 @@ public class Menu {
         tryToInputFirsChoice();
         tryToInputNumberOfPopularWords();
         executor.createServices();
+        input.close();
     }
 
     private void tryToInputFirsChoice() {
@@ -25,7 +26,6 @@ public class Menu {
             System.out.println("Your choice is NO");
         }
     }
-
 
     private void inputSwearWordsFromConsole() {
         String inputSwearWordsFromConsole;
