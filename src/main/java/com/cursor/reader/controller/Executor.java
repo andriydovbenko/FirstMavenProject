@@ -1,4 +1,4 @@
-package com.cursor.reader.execution;
+package com.cursor.reader.controller;
 
 import com.cursor.reader.service.WordController;
 import com.cursor.reader.service.WordReaderFromFile;
@@ -9,12 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Executor {
-    private final String pathForWritingSwearWords = "file/swear_words.txt";
-    private final String pathForWritingShortWords = "file/short_words.txt";
-    private final String pathForReading = "file/data.txt";
-    private List<String> listOfAllWords;
+    private static final String FILE_SWEAR_WORDS_TXT = "file/swear_words.txt";
+    private static final String FILE_SHORT_WORDS_TXT = "file/short_words.txt";
+    private static final String FILE_DATA_TXT = "file/data.txt";
     private List<String> swearWordsListFromText;
-    private List<String> swearWordsListFromUser = new ArrayList<>();
+    private final List<String> swearWordsListFromUser = new ArrayList<>();
     private List<String> shortWordsList;
     private Map<String, Integer> sortedByWordFrequency;
     private int countOfAllWords;
@@ -25,9 +24,9 @@ public class Executor {
     private WordController controller;
 
     public void createServices() {
-        WordReaderFromFile readerFromFile = new WordReaderFromFile(pathForReading);
+        WordReaderFromFile readerFromFile = new WordReaderFromFile(FILE_DATA_TXT);
         countOfAllWords = readerFromFile.getCountOfReadWords();
-        listOfAllWords = readerFromFile.getWordsRepo();
+        List<String> listOfAllWords = readerFromFile.getWordsRepo();
 
         controller = new WordController(listOfAllWords);
         addSwearWordsIfExist();
@@ -36,8 +35,8 @@ public class Executor {
 
         shortWordsList = controller.getShortWordList();
         countOfShortWords = controller.getCountOfShortWords();
-        tryToWriteShortWordsToFile();
-        tryToWriteSwearWordsToFile();
+        writeShortWordsToFile();
+        writeSwearWordsToFile();
 
         printQuantitiesOfWrittenWord();
 
@@ -46,10 +45,9 @@ public class Executor {
     }
 
     private void printQuantitiesOfWrittenWord() {
-        System.out.println("Quantity of all word in text = " + countOfAllWords);
-        System.out.println("Quantity of bad word in text = " + controller.getCountOfSwearWords());
-        System.out.println("Quantity of word which is less than 3 char in text = "
-                + controller.getCountOfShortWords() + "\n");
+        System.out.println("Quantity of all word in text = " + countOfAllWords + "\nQuantity of bad word in text = " +
+                controller.getCountOfSwearWords() + "\nQuantity of word which is less than 3 char in text = " +
+                controller.getCountOfShortWords() + "\n");
     }
 
     private void addSwearWordsIfExist() {
@@ -70,17 +68,17 @@ public class Executor {
         }
     }
 
-    private void tryToWriteShortWordsToFile() {
+    private void writeShortWordsToFile() {
         if (countOfShortWords != 0) {
-            new WordWriterToFile(shortWordsList, pathForWritingShortWords).startWriting();
+            new WordWriterToFile(shortWordsList, FILE_SHORT_WORDS_TXT).startWriting();
         } else {
             System.out.println("There are no short words");
         }
     }
 
-    private void tryToWriteSwearWordsToFile() {
+    private void writeSwearWordsToFile() {
         if (countOfSwearWords != 0) {
-            new WordWriterToFile(swearWordsListFromText, pathForWritingSwearWords).startWriting();
+            new WordWriterToFile(swearWordsListFromText, FILE_SWEAR_WORDS_TXT).startWriting();
         } else {
             System.out.println("There are no bad words");
         }

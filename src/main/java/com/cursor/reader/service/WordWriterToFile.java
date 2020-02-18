@@ -5,7 +5,7 @@ import java.util.List;
 
 public class WordWriterToFile {
     private FileOutputStream pathForWriting;
-    private List<String> wordsRepo;
+    private final List<String> wordsRepo;
 
     public WordWriterToFile(List<String> wordsRepo, String pathForWriting) {
         this.wordsRepo = wordsRepo;

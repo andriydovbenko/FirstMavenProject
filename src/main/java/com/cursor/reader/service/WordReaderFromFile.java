@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordReaderFromFile {
-    private final String wordsIndicator = " ";
-    private final String symbols = "[,)(!]";
-    private final String emptyPlace = "";
+    private static final String WORDS_INDICATOR = " ";
+    private static final String UNCHECKED_SYMBOLS = "[,)(!]";
+    private static final String EMPTY_PLACE = "";
     private final String pathForReadingFile;
     private FileReader fileReader;
     private BufferedReader bufferedReader;
     private String line;
-    private List<String> wordsRepo;
+    private final List<String> wordsRepo;
     private int countOfReadWords;
 
     public WordReaderFromFile(String pathForReadingFile){
@@ -51,7 +51,7 @@ public class WordReaderFromFile {
     private void processingLine() {
         while (line != null) {
             if (!line.isEmpty()) {
-                String[] words = line.split(wordsIndicator);
+                String[] words = line.split(WORDS_INDICATOR);
                 addWordsToListAndCountIt(words);
             }
             tryToReadLine();
@@ -60,7 +60,7 @@ public class WordReaderFromFile {
 
     private void addWordsToListAndCountIt(String[] words) {
         for (String word : words) {
-            String formattedWord = word.replaceAll(symbols, emptyPlace);
+            String formattedWord = word.replaceAll(UNCHECKED_SYMBOLS, EMPTY_PLACE);
             wordsRepo.add(formattedWord);
             countOfReadWords++;
         }

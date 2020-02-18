@@ -4,14 +4,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class WordController {
-    private final String symbol = "'";
-    private final String emptyPlace = "";
-    private final int zeroIntValue = 0;
-    private List<String> wordsRepo;
-    private List<String> swearWordsList = new ArrayList<>();
-    private List<String> shortWordsList = new ArrayList<>();
-    private Set<String> exampleSwearWords = new TreeSet<>();
-    private Map<String, Integer> diversityOfUniqueWords = new TreeMap<>();
+    private static final String SYMBOL = "'";
+    private static final String EMPTY_PLACE = "";
+    private static final int ZERO_INT_VALUE = 0;
+    private final List<String> wordsRepo;
+    private final List<String> swearWordsList = new ArrayList<>();
+    private final List<String> shortWordsList = new ArrayList<>();
+    private final Set<String> exampleSwearWords = new TreeSet<>();
+    private final Map<String, Integer> diversityOfUniqueWords = new TreeMap<>();
     private int countOfSwearWords;
     private int countOfShortWords;
 
@@ -43,7 +43,7 @@ public class WordController {
 
     public List<String> getShortWordList() {
         for (String word : wordsRepo) {
-            if (word.replace(symbol, emptyPlace).length() < 3) {
+            if (word.replace(SYMBOL, EMPTY_PLACE).length() < 3) {
                 shortWordsList.add(word);
                 countOfShortWords++;
             }
@@ -74,7 +74,7 @@ public class WordController {
 
     private void createWordMapWithValueZero() {
         for (String word : wordsRepo) {
-            diversityOfUniqueWords.put(word, zeroIntValue);
+            diversityOfUniqueWords.put(word, ZERO_INT_VALUE);
         }
     }
 
