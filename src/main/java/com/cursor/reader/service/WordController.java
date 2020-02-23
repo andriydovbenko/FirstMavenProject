@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 public class WordController {
     private static final String SYMBOL = "'";
     private static final String EMPTY_PLACE = "";
+    private static final int LENGTH_OF_WORD = 3;
     private static final int ZERO_INT_VALUE = 0;
     private final List<String> wordsRepo;
     private final List<String> swearWordsList = new ArrayList<>();
@@ -43,7 +44,7 @@ public class WordController {
 
     public List<String> getShortWordList() {
         for (String word : wordsRepo) {
-            if (word.replace(SYMBOL, EMPTY_PLACE).length() < 3) {
+            if (word.replace(SYMBOL, EMPTY_PLACE).length() < LENGTH_OF_WORD) {
                 shortWordsList.add(word);
                 countOfShortWords++;
             }
