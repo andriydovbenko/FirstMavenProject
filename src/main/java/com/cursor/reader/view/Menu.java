@@ -19,7 +19,7 @@ public class Menu {
     private void inputFirsChoice() {
         System.out.println("Do you want to add bed words to list searcher?\nPress \"y\" -> yes  or any key-> not");
         String firsChoice = input.next();
-        if (firsChoice.equals("y") || firsChoice.equals("Y") || firsChoice.equals("yes")) {
+        if (firsChoice.equalsIgnoreCase("y") || firsChoice.equalsIgnoreCase("yes")) {
             System.out.println("Enter 'bad' word. To stop enter: \"stop\" or \"s\"");
             inputSwearWordsFromConsole();
         } else {
@@ -32,7 +32,8 @@ public class Menu {
         boolean condition = true;
         while (condition) {
             inputSwearWordsFromConsole = input.next();
-            if (inputSwearWordsFromConsole.equals("s") || inputSwearWordsFromConsole.equals("stop")) {
+            if (inputSwearWordsFromConsole.equalsIgnoreCase("s") ||
+                    inputSwearWordsFromConsole.equalsIgnoreCase("stop")) {
                 condition = false;
             } else {
                 executor.addSwearWordToUserList(inputSwearWordsFromConsole);
